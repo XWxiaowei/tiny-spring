@@ -1,6 +1,6 @@
 package us.codecraft.tinyioc.beans;
 
-import us.codecraft.tinyioc.beans.io.ResourceLoader;
+import us.codecraft.tinyioc.beans.io.UrlResourceLoader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +14,9 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 
     private Map<String,BeanDefinition> registry;
 
-    private ResourceLoader resourceLoader;
+    private UrlResourceLoader resourceLoader;
 
-    protected AbstractBeanDefinitionReader(ResourceLoader resourceLoader) {
+    protected AbstractBeanDefinitionReader(UrlResourceLoader resourceLoader) {
         this.registry = new HashMap<String, BeanDefinition>();
         this.resourceLoader = resourceLoader;
     }
@@ -25,7 +25,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
         return registry;
     }
 
-    public ResourceLoader getResourceLoader() {
+    public UrlResourceLoader getResourceLoader() {
         return resourceLoader;
     }
 }

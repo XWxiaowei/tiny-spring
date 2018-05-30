@@ -7,12 +7,24 @@ package us.codecraft.tinyioc.beans;
  */
 public class BeanDefinition {
 
+	/**
+	 *
+	 */
 	private Object bean;
 
+	/**
+	 * Bean的类型
+	 */
 	private Class beanClass;
 
+	/**
+	 * Bean的名称
+	 */
 	private String beanClassName;
 
+	/**
+	 * 属性
+	 */
 	private PropertyValues propertyValues = new PropertyValues();
 
 	public BeanDefinition() {
