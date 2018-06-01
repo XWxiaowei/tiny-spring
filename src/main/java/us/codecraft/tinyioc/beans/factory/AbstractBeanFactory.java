@@ -27,6 +27,7 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 			throw new IllegalArgumentException("No bean named " + name + " is defined");
 		}
 		Object bean = beanDefinition.getBean();
+		//如果bean存在，则返回。否则调用doCreateBean方法装配一个Bean
 		if (bean == null) {
 			bean = doCreateBean(beanDefinition);
             bean = initializeBean(bean, name);
@@ -35,6 +36,13 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 		return bean;
 	}
 
+	/**
+	 * 对Bean做初始化
+	 * @param bean
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
 	protected Object initializeBean(Object bean, String name) throws Exception {
 		for (BeanPostProcessor beanPostProcessor : beanPostProcessors) {
 			bean = beanPostProcessor.postProcessBeforeInitialization(bean, name);
@@ -63,6 +71,12 @@ public abstract class AbstractBeanFactory implements BeanFactory {
 		}
 	}
 
+	/**
+	 * 创建一个Bean的实例
+	 * @param beanDefinition
+	 * @return
+	 * @throws Exception
+	 */
 	protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
 		Object bean = createBeanInstance(beanDefinition);
 		beanDefinition.setBean(bean);

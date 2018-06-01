@@ -38,12 +38,20 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		inputStream.close();
 	}
 
+	/**
+	 * 解析Bean
+	 * @param doc
+	 */
 	public void registerBeanDefinitions(Document doc) {
 		Element root = doc.getDocumentElement();
 
 		parseBeanDefinitions(root);
 	}
 
+	/**
+	 * 解析Bean
+	 * @param root
+	 */
 	protected void parseBeanDefinitions(Element root) {
 		NodeList nl = root.getChildNodes();
 		for (int i = 0; i < nl.getLength(); i++) {
@@ -55,15 +63,28 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		}
 	}
 
+
+	/**
+	 * 解析Bean中的id和class,以及其他属性
+	 * @param ele
+	 */
 	protected void processBeanDefinition(Element ele) {
 		String name = ele.getAttribute("id");
 		String className = ele.getAttribute("class");
 		BeanDefinition beanDefinition = new BeanDefinition();
+		//保存属性
 		processProperty(ele, beanDefinition);
+		//保存类全限定名
 		beanDefinition.setBeanClassName(className);
+		//将获得的Bean的定义保存到map中
 		getRegistry().put(name, beanDefinition);
 	}
 
+	/**
+	 * 解析Bean中的property属性
+	 * @param ele
+	 * @param beanDefinition
+	 */
 	private void processProperty(Element ele, BeanDefinition beanDefinition) {
 		NodeList propertyNode = ele.getElementsByTagName("property");
 		for (int i = 0; i < propertyNode.getLength(); i++) {

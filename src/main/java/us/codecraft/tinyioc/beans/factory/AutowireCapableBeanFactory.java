@@ -15,6 +15,13 @@ import java.lang.reflect.Method;
  */
 public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 
+
+	/**
+	 * 将读取到的property值设置到Bean中
+	 * @param bean
+	 * @param mbd
+	 * @throws Exception
+	 */
 	protected void applyPropertyValues(Object bean, BeanDefinition mbd) throws Exception {
 		if (bean instanceof BeanFactoryAware) {
 			((BeanFactoryAware) bean).setBeanFactory(this);
@@ -31,7 +38,7 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
 						"set" + propertyValue.getName().substring(0, 1).toUpperCase()
 								+ propertyValue.getName().substring(1), value.getClass());
 				declaredMethod.setAccessible(true);
-
+				//反射方式设值
 				declaredMethod.invoke(bean, value);
 			} catch (NoSuchMethodException e) {
 				Field declaredField = bean.getClass().getDeclaredField(propertyValue.getName());
